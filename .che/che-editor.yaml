@@ -1,0 +1,39 @@
+inline:
+  schemaVersion: 2.1.0
+  metadata:
+    name: test-custom-ide-xfreeg0
+  components:
+    - name: test-activity
+      container:
+        image: >-
+          ghcr.io/xfreeg0/test-activity:latest
+    - name: test-deploy
+      kubernetes:
+        inlined: |
+          apiVersion: batch/v1
+          kind: Job
+          metadata:
+            generateName: test-job-
+          spec:
+            ttlSecondsAfterFinished: 0
+            template:
+              metadata:
+                labels:
+                  app: test
+              spec:
+                containers:
+                  - name: test
+                    image: debian:buster-slim
+                    command:
+                      - bash
+                      - -o
+                      - errexit
+                      - -c
+                      - |
+                        apt update && apt install -y iproute2
+                        sleep infinity
+                    securityContext:
+                      capabilities:
+                        add: ["NET_ADMIN"]
+                restartPolicy: Never
+            backoffLimit: 0
