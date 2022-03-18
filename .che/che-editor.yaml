@@ -13,25 +13,20 @@ inline:
           apiVersion: v1
           kind: Pod
           metadata:
-            test-pod
+            name: test-pod
           spec:
-            template:
-              metadata:
-                labels:
-                  app: test
-              spec:
-                containers:
-                  - name: test
-                    image: debian:buster-slim
-                    command:
-                      - bash
-                      - -o
-                      - errexit
-                      - -c
-                      - |
-                        apt update && apt install -y iproute2
-                        sleep infinity
-                    securityContext:
-                      capabilities:
-                        add: ["NET_ADMIN"]
+            containers:
+              - name: test
+                image: debian:buster-slim
+                command:
+                  - bash
+                  - -o
+                  - errexit
+                  - -c
+                  - |
+                    apt update && apt install -y iproute2
+                    sleep infinity
+                securityContext:
+                  capabilities:
+                    add: ["NET_ADMIN"]
 
