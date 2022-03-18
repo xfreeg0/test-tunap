@@ -10,12 +10,11 @@ inline:
     - name: test-deploy
       kubernetes:
         inlined: |
-          apiVersion: batch/v1
-          kind: Job
+          apiVersion: v1
+          kind: Pod
           metadata:
-            generateName: test-job-
+            test-pod
           spec:
-            ttlSecondsAfterFinished: 0
             template:
               metadata:
                 labels:
@@ -35,5 +34,4 @@ inline:
                     securityContext:
                       capabilities:
                         add: ["NET_ADMIN"]
-                restartPolicy: Never
-            backoffLimit: 0
+
