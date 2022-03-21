@@ -26,7 +26,4 @@ inline:
                   - |
                     apt update && apt install -y iproute2
                     sleep infinity
-                securityContext:
-                  capabilities:
-                    add: ["NET_ADMIN"]
 
